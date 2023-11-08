@@ -1,0 +1,44 @@
+// Add dependency on the protobuf plugin
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url INTRANET_MAVEN_URL
+            credentials {
+                username INTRANET_MAVEN_USERNAME
+                password INTRANET_MAVEN_PASSWORD
+            }
+        }
+    }
+    dependencies { classpath libraries.protobuf_plugin }
+}
+
+description = "gRPC: Services"
+
+[compileJava].each() {
+    // v1alpha of reflection.proto is deprecated at the file level.
+    // Without this workaround, the project can not compile.
+    it.options.compilerArgs += [
+        "-Xlint:-deprecation",
+    ]
+}
+
+dependencies {
+    compile project(':orientsec-grpc-protobuf'),
+            project(':orientsec-grpc-stub')
+    compile (libraries.protobuf_util) {
+        // prefer 20.0 from libraries instead of 19.0
+        exclude group: 'com.google.guava', module: 'guava'
+    }
+    compile libraries.re2j
+
+    compileOnly libraries.javax_annotation
+    testCompile project(':orientsec-grpc-testing'),
+            libraries.netty_epoll, // for DomainSocketAddress
+            project(':orientsec-grpc-core').sourceSets.test.output  // for FakeClock
+    testCompileOnly libraries.javax_annotation
+    signature "org.codehaus.mojo.signature:java17:1.0@signature"
+}
+
+configureProtoCompilation()

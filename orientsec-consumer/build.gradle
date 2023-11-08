@@ -1,0 +1,19 @@
+description = "服务消费者模块"
+
+dependencies {
+    compile project(':orientsec-grpc-common'),
+            project(':orientsec-grpc-registry')
+
+    testCompile libraries.junit,
+            project(':orientsec-grpc-testing')
+
+    signature "org.codehaus.mojo.signature:java17:1.0@signature"
+}
+
+animalsniffer {
+    // Don't check sourceSets.jmh
+    sourceSets = [
+        sourceSets.main,
+        sourceSets.test
+    ]
+}

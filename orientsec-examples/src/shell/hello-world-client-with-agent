@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#假设java agent的位置为: /opt/grpc-governance/bonree/bonree.jar
+
+PRG="$0"
+cd "`dirname \"$PRG\"`/.." >/dev/null
+
+echo "Start client..."
+
+arg=$1
+
+nohup java -cp $CLASSPATH:lib/* \
+-javaagent:/opt/grpc-governance/bonree/bonree.jar \
+-Dbonree.appName=hello-world-client  \
+-Dbonree.agentName=hello-world-client  \
+-Dbonree.clusterName=grpc-test-application  \
+-Dbonree.tierName=grpc-test-project \
+com.orientsec.grpc.examples.helloworld.HelloWorldClient $arg \
+>client.log 2 >&1 &
+
+sleep 5s
+echo "Work Done"

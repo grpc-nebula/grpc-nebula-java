@@ -1,0 +1,27 @@
+description = "注册模块"
+
+dependencies {
+    compile project(':orientsec-grpc-common')
+
+    compile ("org.apache.curator:curator-recipes:2.12.0") {
+        exclude group: 'com.google.guava', module: 'guava'
+        exclude group: 'log4j', module: 'log4j'
+        exclude group: 'org.slf4j', module: 'slf4j-api'
+    }
+
+    compile "org.slf4j:slf4j-api:1.7.6"
+    compile "log4j:log4j:1.2.17"
+
+    testCompile libraries.junit,
+            project(':orientsec-grpc-testing')
+
+    signature "org.codehaus.mojo.signature:java17:1.0@signature"
+}
+
+animalsniffer {
+    // Don't check sourceSets.jmh
+    sourceSets = [
+        sourceSets.main,
+        sourceSets.test
+    ]
+}

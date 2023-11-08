@@ -1,0 +1,2 @@
+io.grpc.internal.DnsNameResolverProvider
+com.orientsec.grpc.consumer.internal.ZookeeperNameResolverProvider

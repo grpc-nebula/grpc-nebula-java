@@ -1,0 +1,65 @@
+
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.orientsec.grpc.examples.helloworld";
+option java_outer_classname = "HelloWorldProto";
+option objc_class_prefix = "HLW";
+
+package com.orientsec.bocloud.demo.helloworld;
+
+// The greeting service definition.
+service Greeter {
+  // Sends a greeting
+  rpc sayHello (HelloRequest) returns (HelloReply) {}
+  rpc echo (HelloRequest) returns (HelloReply) {}
+  rpc longTimeMethod (HelloRequest) returns (HelloReply) {}
+  rpc testLb (HelloRequest) returns (HelloReply) {}
+  rpc performanceTest  (TestRequest) returns (TestReply) {}
+  rpc asynSayHello (HelloRequest) returns (HelloReply) {}
+  rpc asyncPerformanceTest(stream TestRequest) returns (TestReply) {}
+}
+
+// The request message containing the user's name.
+message HelloRequest {
+  int32  id   = 1;
+  string name = 2;
+  bool male = 3;
+}
+
+
+// The response message containing the greetings
+message HelloReply {
+  string message = 1;
+  int32  no      = 2;
+}
+
+message TestRequest {
+    int32   id        = 1;
+    int64   timestamp = 2;
+    bool    vip       = 3;
+    string  name      = 4;
+    float   price     = 5;
+    double  summation = 6;
+    map<int32, string> args = 7;
+    repeated string messages = 8;
+}
+
+message TestReply {
+    bool   success = 1;
+    string message = 2;
+}
+
+
+
+service TestPay {
+    rpc ConsumerPay (PayRequest) returns (PayReply) {}
+}
+
+message PayRequest {
+    string name = 1;
+}
+
+message PayReply {
+    string message = 1;
+}

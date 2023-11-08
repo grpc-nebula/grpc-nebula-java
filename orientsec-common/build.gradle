@@ -1,0 +1,23 @@
+description = "通用模块"
+
+dependencies {
+    compile "org.slf4j:slf4j-api:1.7.6"
+
+    compile (libraries.guava) {
+        exclude group: 'com.google.errorprone', module: 'error_prone_annotations'
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+        exclude group: 'org.codehaus.mojo', module: 'animal-sniffer-annotations'
+    }
+
+    testCompile libraries.junit
+
+    signature "org.codehaus.mojo.signature:java17:1.0@signature"
+}
+
+animalsniffer {
+    // Don't check sourceSets.jmh
+    sourceSets = [
+        sourceSets.main,
+        sourceSets.test
+    ]
+}

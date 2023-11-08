@@ -1,0 +1,27 @@
+description = "gRPC: Testing Protos"
+
+// Add dependency on the protobuf plugin
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url INTRANET_MAVEN_URL
+            credentials {
+                username INTRANET_MAVEN_USERNAME
+                password INTRANET_MAVEN_PASSWORD
+            }
+        }
+    }
+    dependencies { classpath libraries.protobuf_plugin }
+}
+
+dependencies {
+    compile project(':orientsec-grpc-protobuf'),
+            project(':orientsec-grpc-stub')
+    compileOnly libraries.javax_annotation
+    testCompile libraries.truth
+    testRuntime libraries.javax_annotation
+}
+
+configureProtoCompilation()

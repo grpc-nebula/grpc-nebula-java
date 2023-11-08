@@ -1,0 +1,23 @@
+description = "gRPC: OkHttp"
+
+dependencies {
+    compile project(':orientsec-grpc-core'),
+            libraries.okhttp,
+            libraries.okio
+
+    // Tests depend on base class defined by core module.
+    testCompile project(':orientsec-grpc-core').sourceSets.test.output,
+            project(':orientsec-grpc-testing'),
+            project(':orientsec-grpc-netty')
+    signature "org.codehaus.mojo.signature:java17:1.0@signature"
+    signature "net.sf.androidscents.signature:android-api-level-14:4.0_r4@signature"
+}
+
+project.sourceSets {
+    main { java { srcDir "${projectDir}/third_party/okhttp/main/java" } }
+    test { java { srcDir "${projectDir}/third_party/okhttp/test/java" } }
+}
+
+
+javadoc.exclude 'io/grpc/okhttp/internal/**'
+javadoc.options.links 'http://square.github.io/okhttp/2.x/okhttp/'

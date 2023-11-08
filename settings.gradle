@@ -1,0 +1,65 @@
+rootProject.name = "grpc-nebula-java"
+include ":orientsec-grpc-core"
+include ":orientsec-grpc-context"
+include ":orientsec-grpc-stub"
+include ":orientsec-grpc-auth"
+include ":orientsec-grpc-okhttp"
+include ":orientsec-grpc-protobuf"
+include ":orientsec-grpc-protobuf-lite"
+include ":orientsec-grpc-protobuf-nano"
+include ":orientsec-grpc-netty"
+include ":orientsec-grpc-netty-shaded"
+include ":orientsec-grpc-grpclb"
+include ":orientsec-grpc-testing"
+include ":orientsec-grpc-testing-proto"
+include ":orientsec-grpc-interop-testing"
+//include ":orientsec-grpc-gae-interop-testing-jdk7"
+//include ":orientsec-grpc-gae-interop-testing-jdk8"
+include ":orientsec-grpc-all"
+include ":orientsec-grpc-alts"
+include ":orientsec-grpc-benchmarks"
+include ":orientsec-grpc-services"
+// 定义新项目
+include ":orientsec-grpc-examples"
+include ":orientsec-grpc-common"
+include ":orientsec-grpc-registry"
+include ":orientsec-grpc-provider"
+include ":orientsec-grpc-consumer"
+
+
+project(':orientsec-grpc-core').projectDir = "$rootDir/core" as File
+project(':orientsec-grpc-context').projectDir = "$rootDir/context" as File
+project(':orientsec-grpc-stub').projectDir = "$rootDir/stub" as File
+project(':orientsec-grpc-auth').projectDir = "$rootDir/auth" as File
+project(':orientsec-grpc-okhttp').projectDir = "$rootDir/okhttp" as File
+project(':orientsec-grpc-protobuf').projectDir = "$rootDir/protobuf" as File
+project(':orientsec-grpc-protobuf-lite').projectDir = "$rootDir/protobuf-lite" as File
+project(':orientsec-grpc-protobuf-nano').projectDir = "$rootDir/protobuf-nano" as File
+project(':orientsec-grpc-netty').projectDir = "$rootDir/netty" as File
+project(':orientsec-grpc-netty-shaded').projectDir = "$rootDir/netty/shaded" as File
+project(':orientsec-grpc-grpclb').projectDir = "$rootDir/grpclb" as File
+project(':orientsec-grpc-testing').projectDir = "$rootDir/testing" as File
+project(':orientsec-grpc-testing-proto').projectDir = "$rootDir/testing-proto" as File
+project(':orientsec-grpc-interop-testing').projectDir = "$rootDir/interop-testing" as File
+//project(':orientsec-grpc-gae-interop-testing-jdk7').projectDir = "$rootDir/gae-interop-testing/gae-jdk7" as File
+//project(':orientsec-grpc-gae-interop-testing-jdk8').projectDir = "$rootDir/gae-interop-testing/gae-jdk8" as File
+project(':orientsec-grpc-all').projectDir = "$rootDir/all" as File
+project(':orientsec-grpc-alts').projectDir = "$rootDir/alts" as File
+project(':orientsec-grpc-benchmarks').projectDir = "$rootDir/benchmarks" as File
+project(':orientsec-grpc-services').projectDir = "$rootDir/services" as File
+// 设置新项目的目录路径
+project(':orientsec-grpc-examples').projectDir = "$rootDir/orientsec-examples" as File
+project(':orientsec-grpc-common').projectDir = "$rootDir/orientsec-common" as File
+project(':orientsec-grpc-registry').projectDir = "$rootDir/orientsec-registry" as File
+project(':orientsec-grpc-provider').projectDir = "$rootDir/orientsec-provider" as File
+project(':orientsec-grpc-consumer').projectDir = "$rootDir/orientsec-consumer" as File
+
+
+if (settings.hasProperty('skipCodegen') && skipCodegen.toBoolean()) {
+    println '*** Skipping the build of codegen and compilation of proto files because skipCodegen=true'
+} else {
+    include ":orientsec-grpc-compiler"
+    project(':orientsec-grpc-compiler').projectDir = "$rootDir/compiler" as File
+}
+
+
